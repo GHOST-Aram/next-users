@@ -1,8 +1,8 @@
-import { HydratedDocument, Model, Schema, model } from "mongoose"
+import { HydratedDocument, Model, Schema, model, models } from "mongoose"
 import { compare, hash } from 'bcrypt'
 
 
-interface User{
+export interface User{
     name: string
     email: string
     password: string
@@ -34,4 +34,4 @@ userSchema.method('hasValidPassword', async function(password: string): Promise<
 
 export type HydratedUserModel = HydratedDocument<User>
 
-export const User = model<User,UserModel>('User', userSchema)
+export const User = models.User ? models.User : model<User,UserModel>('User', userSchema)
